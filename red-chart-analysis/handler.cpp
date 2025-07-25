@@ -76,6 +76,9 @@ bool CfgHandler::getBool(const std::string&ky, const bool&fallback) const{
 // Csv Handling
 
 void parseLine(const std::string& line, std::unordered_map<Time, Candlestick>& Chart) {
+    // yes i vibecoded this beacuse it works.
+    //thank you mr. gpt :)
+
     std::istringstream iss(line);
 
     // Parse date
