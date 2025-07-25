@@ -12,6 +12,8 @@
 //Config
 CfgHandler cfg;
 
+//Csv
+CsvHandler csv;
 
 
 #endif
