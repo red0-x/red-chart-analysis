@@ -75,7 +75,7 @@ bool CfgHandler::getBool(const std::string&ky, const bool&fallback) const{
 
 // Csv Handling
 
-void parseLine(const std::string& line, std::unordered_map<Time, Candlestick>& Chart) {
+void parseLine(const std::string& line, std::unordered_map<Time, Candlestick>& Chart, int&lines) {
     // yes i vibecoded this beacuse it works.
     //thank you mr. gpt :)
 
@@ -117,6 +117,7 @@ void parseLine(const std::string& line, std::unordered_map<Time, Candlestick>& C
     Candlestick c { open, high, low, close, volume };
 
     // Insert into chart
+    std::cout << "#" << lines << " Parsed [O, M,D,Y]: " << "" << open << "|" << month  << "|" << day << "|" << year << "" << std::endl;
     Chart[t] = c;
 
 }
@@ -133,13 +134,14 @@ bool CsvHandler::load(const std::string&csvPath){
     std::string lnn; 
     
     std::getline(red0xx, lnn); // skip header
+    int lines = 0;
     while(std::getline(red0xx, lnn)){
         if (lnn.empty()) continue;
-        parseLine(lnn, Chart);
-     
+        lines += 1;
+        parseLine(lnn, Chart, lines);
     };
+    std::cout << std::endl << "Successfully parsed CSV to hashmap!" << std::endl;
     red0xx.close();
-    std::cout << "Successfully Parsed Chart to Hash Map." << std::endl;
     return true; 
 }
 

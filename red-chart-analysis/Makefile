@@ -1,9 +1,11 @@
 CXX = g++
 
-CXXFLAGS = -Wall -std=c++17
+
+CXXFLAGS = -Wall -std=c++17 -I/usr/include/python3.13
+LDFLAGS = -lpython3.13
 
 
-TARGET = redchart
+TARGET = build/redchart
 
 
 SRCS = main.cpp handler.cpp

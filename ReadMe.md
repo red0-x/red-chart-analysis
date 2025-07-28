@@ -24,6 +24,18 @@
 
 - Likely gives a segmentation fault
 
+#### 7/28/2025
+> ### Added Menu
+
+- Prints Menu 
+
+- Handles User input
+
+> ### Modified Parsing Output
+
+- Looks a little different + with line counter
+
+
 
 ## Build with 
 ```zsh
@@ -31,5 +43,5 @@ red0-x@red:~$ git clone https://github.com/red0-x/red-chart-analysis.git && cd r
 
 red0-x@red:~$ make
 
-red0-x@red:~$ ./redchart
+red0-x@red:~$ ./build/redchart
 ```

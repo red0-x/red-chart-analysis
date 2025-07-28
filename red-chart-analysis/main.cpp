@@ -33,9 +33,54 @@ void printCsv(){
    csv.load(csvPath);
 };
 
+void printMenu(){
+    std::cout << std::endl;
+    std::cout << "Redscreen | Menu" << std::endl;
+    std::cout << "____________________" << std::endl;
+    std::cout << "[1] Print Config" << std::endl;
+    std::cout << "[2] Parse CSV" << std::endl;
+    std::cout << "[3] Exit" << std::endl;
+    std::cout << "____________________" << std::endl << std::endl;
+   
+}
+
+void handleSelection() {
+    std::cout << "Choose an option." << std::endl << ">";
+
+    int usri = 0;
+    std::string input;
+    std::getline(std::cin, input);
+
+    std::stringstream ss(input);
+    if (!(ss >> usri) || (ss.peek() != EOF)) {
+        std::cout << "\nChoose a valid Input. [int 1-3]" << std::endl;
+        handleSelection();
+        return;
+    }
+
+    switch(usri){
+        case 1:
+            printCfg();
+            break;
+        case 2: 
+            printCsv();
+            break;
+        case 3:
+            break;
+        default:
+            std::cout << "\nChoose a valid Input. [int 1-3]" << std::endl;
+            handleSelection();
+            break;
+    }
+}
+
+
+void menu(){
+ printMenu();
+ handleSelection();
+};
+
 int main(){
-  printCfg();
-  std::cout << std::endl << std::endl;
-  printCsv();
+  menu();
  return 0;   
 }
