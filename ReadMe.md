@@ -35,7 +35,17 @@
 
 - Looks a little different + with line counter
 
+#### 8/14/2025
+> ### Added Gui + Readable Chart 
 
+- Loads Config and handles chart data.
+
+- Doesn't really work well with large sets of data, I will be fixing that soon.
+
+- The candles coloring can be buggy and I'm also fixing that.
+
+- Should be more updates to come
+  
 
 ## Build with 
 ```zsh

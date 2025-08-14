@@ -74,8 +74,10 @@ public:
     bool load(const std::string& csvPath = "data/eu5.csv");
 
     // const std::unordered_map<Time, Candlestick>& getChart() const { return Chart; }
-private:
     std::unordered_map<Time, Candlestick> Chart;
+    
+private:
+
 };
 
 

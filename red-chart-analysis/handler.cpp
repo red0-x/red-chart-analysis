@@ -117,7 +117,7 @@ void parseLine(const std::string& line, std::unordered_map<Time, Candlestick>& C
     Candlestick c { open, high, low, close, volume };
 
     // Insert into chart
-    std::cout << "#" << lines << " Parsed [O, M,D,Y]: " << "" << open << "|" << month  << "|" << day << "|" << year << "" << std::endl;
+    std::cout << "#" << lines << " Parsed [O,M,D,Y]: " << "" << open << "|" << month  << "|" << day << "|" << year << "" << std::endl;
     Chart[t] = c;
 
 }
