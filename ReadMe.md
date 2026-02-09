@@ -3,7 +3,6 @@
 
 >### The RoadMap
 >- Read and Load Chart Data from .csv
->- Find where the most liquidity gets taken out
 >- Lose money
 >- Improve my C++ skills
 
