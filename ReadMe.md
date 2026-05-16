@@ -63,7 +63,7 @@
 
 ## Build with 
 ```zsh
-red0-x@red:~$ git clone https://github.com/red0-x/red-chart-analysis.git && cd red-chart-analysis/red-chart-analysis
+red0-x@red:~$ git clone https://github.com/red0-x/cppRedChart.git && cd cppRedChart/redchart/
 
 red0-x@red:~$ make
 
