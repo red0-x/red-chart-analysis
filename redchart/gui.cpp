@@ -478,19 +478,7 @@ int main(int, char**)
                     if (xs.size() < 2) {
                         ImGui::Text("Not enough data to plot.");
                     } else {
-<<<<<<< HEAD
                         if (ImPlot::BeginPlot(ticker_buf)) {
-=======
-                        static int candleCount = 300;
-                        ImGui::InputInt("Candles to Show", &candleCount);
-                        if (candleCount < 10) candleCount = 10;
-                        if (candleCount > (int)xs.size()) candleCount = (int)xs.size();
-                        int start = std::max(0, (int)xs.size() - candleCount);
-                        int count = (int)xs.size() - start;
-                        float candle_width = 0.9f * (xs[1] - xs[0]);
-                        const char* plot_title = (ticker_buf[0] != '\0') ? ticker_buf : "Chart";
-                        if (ImPlot::BeginPlot(plot_title)) {
->>>>>>> 3b1224c84d145b7d8b459b8e3ddf0f877d3fe887
                             ImPlot::SetupAxes("Time", "Price");
                             ImPlot::SetupAxisScale(ImAxis_X1, ImPlotScale_Time);
                             ImPlot::SetupAxesLimits(
@@ -500,14 +488,14 @@ int main(int, char**)
                             );
                             candlePlot::PlotCandlestick(
                                 "Candles",
-                                &xs[start],
-                                &opens[start],
-                                &closes[start],
-                                &lows[start],
-                                &highs[start],
-                                count,
+                                xs.data(),
+                                opens.data(),
+                                closes.data(),
+                                lows.data(),
+                                highs.data(),
+                                (int)xs.size(),
                                 true,
-                                candle_width,
+                                0.25f,
                                 ImVec4(0.0f, 1.0f, 0.0f, 1.0f),
                                 ImVec4(1.0f, 0.0f, 0.0f, 1.0f)
                             );
