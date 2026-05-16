@@ -51,7 +51,7 @@
 
 #### 5/3/2026-5.16 
 
-> ### Major update: Added GUI fixea and Yahoo finance fetching is now available.
+> ### Major update: Added GUI fixes and Yahoo finance fetching is now available.
 - Fetch ANY chart ticker supported by yahoo finance's api and load it onto the chart
 
 - Chart readability bugs sqaushed!
