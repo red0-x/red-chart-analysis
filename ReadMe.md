@@ -3,24 +3,6 @@
 - Written in c++ with yahoo finance api implementation and simple graphing abilities.
 - currently [WIP] @ [red0xx.top](https://red0xx.top/?r=redchartcpp)
 
->### The RoadMap
->- Add indicator functionality
->- UI Revamp with nice panelling and red coloring
->- Graphing improvements, sizing changes and better visibility
->- Add Custom candle colors and different candle types
->- EMAs, SDs and other built in indicators
->- Webhook functionality
-
-#### 5/3/2026-5.16 
-
-> ### Major update: Added Gui fixes and Yahoo finance fetching is now available.
-- Fetch ANY chart ticker supported by yahoo finance's api and load it onto the chart
-
-- Chart readability bugs sqaushed!
-
-> ### Config viewing revamp,
-- can now edit config within the gui and pick charts to read with ease!
-
 <details>
 <summary><b>Older updates</b></summary>
 
@@ -64,7 +46,24 @@
 - Likely gives a segmentation fault
 
 </details>
+
+#### 5/3/2026-5.16 
+
+> ### Major update: Added GUI fixea and Yahoo finance fetching is now available.
+- Fetch ANY chart ticker supported by yahoo finance's api and load it onto the chart
+
+- Chart readability bugs sqaushed!
+
+> #### Config viewing revamp,
+- can now edit config within the gui and pick charts to read with ease!
   
+>### The RoadMap
+>- Add indicator functionality
+>- UI Revamp with nice panelling and red coloring
+>- Graphing improvements, sizing changes and better visibility
+>- Add Custom candle colors and different candle types
+>- EMAs, SDs and other built in indicators
+>- Webhook functionality
 
 ## Build with 
 ```zsh
