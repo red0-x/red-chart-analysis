@@ -2,8 +2,10 @@
 # RedChart - The grapical charting tool, all in one for your needs
 - Written in c++ with yahoo finance api implementation and simple graphing abilities.
 - currently [WIP] @ [red0xx.top](https://red0xx.top/?r=redchartcpp)
+<img width="1000" height="544" alt="image" src="https://github.com/user-attachments/assets/09584d9f-a761-48ae-b9e8-2a59bf95cf49" />
 
 <details>
+
 <summary><b>Older updates</b></summary>
 
 #### 8/14/2025
