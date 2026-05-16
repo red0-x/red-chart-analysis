@@ -195,8 +195,8 @@ int main(int, char**)
     SDL_GL_SetAttribute(SDL_GL_DEPTH_SIZE, 24);
     SDL_GL_SetAttribute(SDL_GL_STENCIL_SIZE, 8);
     float main_scale = SDL_GetDisplayContentScale(SDL_GetPrimaryDisplay());
-    SDL_WindowFlags window_flags = SDL_WINDOW_OPENGL | SDL_WINDOW_RESIZABLE | SDL_WINDOW_HIDDEN | SDL_WINDOW_HIGH_PIXEL_DENSITY;
-    SDL_Window* window = SDL_CreateWindow("Red-Chart Analysis", (int)(1280 * main_scale), (int)(720 * main_scale), window_flags);
+    SDL_WindowFlags window_flags = SDL_WINDOW_OPENGL | SDL_WINDOW_RESIZABLE | SDL_WINDOW_HIDDEN | SDL_WINDOW_HIGH_PIXEL_DENSITY | SDL_WINDOW_TRANSPARENT | SDL_WINDOW_BORDERLESS;
+    SDL_Window* window = SDL_CreateWindow("RedChart", (int)(1280 * main_scale), (int)(720 * main_scale), window_flags);
     if (window == nullptr)
     {
         printf("Error: SDL_CreateWindow(): %s\n", SDL_GetError());
@@ -225,8 +225,53 @@ int main(int, char**)
     ImGui::StyleColorsDark();
     //ImGui::StyleColorsLight();
 
+    // Red theme overrides
+    {
+        ImVec4* c = ImGui::GetStyle().Colors;
+        ImVec4 red       = ImVec4(0.75f, 0.10f, 0.10f, 1.00f);
+        ImVec4 redHover  = ImVec4(0.90f, 0.20f, 0.20f, 1.00f);
+        ImVec4 redActive = ImVec4(1.00f, 0.30f, 0.30f, 1.00f);
+        ImVec4 redDim    = ImVec4(0.40f, 0.05f, 0.05f, 1.00f);
+        c[ImGuiCol_FrameBg]            = redDim;
+        c[ImGuiCol_FrameBgHovered]     = red;
+        c[ImGuiCol_FrameBgActive]      = redHover;
+        c[ImGuiCol_TitleBgActive]      = red;
+        c[ImGuiCol_CheckMark]          = redActive;
+        c[ImGuiCol_SliderGrab]         = red;
+        c[ImGuiCol_SliderGrabActive]   = redActive;
+        c[ImGuiCol_Button]             = redDim;
+        c[ImGuiCol_ButtonHovered]      = red;
+        c[ImGuiCol_ButtonActive]       = redActive;
+        c[ImGuiCol_Header]             = redDim;
+        c[ImGuiCol_HeaderHovered]      = red;
+        c[ImGuiCol_HeaderActive]       = redActive;
+        c[ImGuiCol_Separator]          = red;
+        c[ImGuiCol_SeparatorHovered]   = redHover;
+        c[ImGuiCol_SeparatorActive]    = redActive;
+        c[ImGuiCol_ResizeGrip]         = redDim;
+        c[ImGuiCol_ResizeGripHovered]  = red;
+        c[ImGuiCol_ResizeGripActive]   = redActive;
+        c[ImGuiCol_Tab]                = redDim;
+        c[ImGuiCol_TabHovered]         = redHover;
+        c[ImGuiCol_TabSelected]        = red;
+        c[ImGuiCol_PlotLines]          = redActive;
+        c[ImGuiCol_PlotLinesHovered]   = redHover;
+        c[ImGuiCol_PlotHistogram]      = red;
+        c[ImGuiCol_PlotHistogramHovered] = redHover;
+        c[ImGuiCol_TextSelectedBg]     = redDim;
+        c[ImGuiCol_NavCursor]          = redActive;
+        c[ImGuiCol_DragDropTarget]     = redActive;
+    }
+
     // Setup scaling
     ImGuiStyle& style = ImGui::GetStyle();
+    style.WindowRounding   = 10.0f;
+    style.FrameRounding    = 6.0f;
+    style.GrabRounding     = 6.0f;
+    style.PopupRounding    = 8.0f;
+    style.ChildRounding    = 8.0f;
+    style.TabRounding      = 6.0f;
+    style.ScrollbarRounding = 8.0f;
     style.ScaleAllSizes(main_scale);        // Bake a fixed style scale. (until we have a solution for dynamic style scaling, changing this requires resetting Style + calling this again)
     style.FontScaleDpi = main_scale;        // Set initial font scale. (using io.ConfigDpiScaleFonts=true makes this unnecessary. We leave both here for documentation purpose)
 
@@ -251,7 +296,7 @@ int main(int, char**)
     //ImFont* font = io.Fonts->AddFontFromFileTTF("c:\\Windows\\Fonts\\ArialUni.ttf");
     //IM_ASSERT(font != nullptr);
 
-    ImVec4 clear_color = ImVec4(0.45f, 0.55f, 0.60f, 1.00f);
+    ImVec4 clear_color = ImVec4(0.00f, 0.00f, 0.00f, 0.00f);
 
     // Main loop
     bool done = false;
@@ -303,7 +348,7 @@ int main(int, char**)
                     //    | ImGuiWindowFlags_NoDecoration 
                     //    | ImGuiWindowFlags_NoBackground;
 
-            ImGui::Begin("Red-Chart", nullptr, flags);
+            ImGui::Begin("RedChart", nullptr, flags);
 
             static char ticker_buf[64] = "";
             static char tf_buf[64] = "";
