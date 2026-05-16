@@ -1,4 +1,4 @@
-[WIP] @ [red0xx.top](https://red0xx.top/?r=gh)
+[WIP] @ [red0xx.top](https://red0xx.top/?r=redchartcpp)
 # red0xx's chart analysis tool
 
 >### The RoadMap
