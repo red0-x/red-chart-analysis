@@ -27,7 +27,7 @@
 
 
 
-
+// pls dont use direct x....
 
 //cfg
 bool cfgLoaded = false;
@@ -456,11 +456,11 @@ int main(int, char**)
             if (ImGui::BeginPopup("Chart Popup")) {
 
                 ImGui::Text("Chart [%s] %s", ticker_buf, tf_buf);
-                
+
                 if (!csvLoaded) {
                     ImGui::Text("No chart data loaded.");
                 } else {
-                    std::vector<double> xs; 
+                    std::vector<double> xs;
                     std::vector<double> opens, highs, lows, closes;
                     std::vector<std::pair<Time, Candlestick>> sorted_chart(csv.Chart.begin(), csv.Chart.end());
                     std::sort(sorted_chart.begin(), sorted_chart.end(), [](const auto& a, const auto& b) {
@@ -477,9 +477,20 @@ int main(int, char**)
                     }
                     if (xs.size() < 2) {
                         ImGui::Text("Not enough data to plot.");
-                        ImGui::EndPopup();
                     } else {
+<<<<<<< HEAD
                         if (ImPlot::BeginPlot(ticker_buf)) {
+=======
+                        static int candleCount = 300;
+                        ImGui::InputInt("Candles to Show", &candleCount);
+                        if (candleCount < 10) candleCount = 10;
+                        if (candleCount > (int)xs.size()) candleCount = (int)xs.size();
+                        int start = std::max(0, (int)xs.size() - candleCount);
+                        int count = (int)xs.size() - start;
+                        float candle_width = 0.9f * (xs[1] - xs[0]);
+                        const char* plot_title = (ticker_buf[0] != '\0') ? ticker_buf : "Chart";
+                        if (ImPlot::BeginPlot(plot_title)) {
+>>>>>>> 3b1224c84d145b7d8b459b8e3ddf0f877d3fe887
                             ImPlot::SetupAxes("Time", "Price");
                             ImPlot::SetupAxisScale(ImAxis_X1, ImPlotScale_Time);
                             ImPlot::SetupAxesLimits(
@@ -487,13 +498,6 @@ int main(int, char**)
                                 *std::min_element(lows.begin(), lows.end()),
                                 *std::max_element(highs.begin(), highs.end())
                             );
-                            static int candleCount = 300;  
-                            ImGui::InputInt("Candles to Show", &candleCount);
-                            if (candleCount < 10) candleCount = 10;                   
-                            if (candleCount > (int)xs.size()) candleCount = xs.size();   
-                            int start = std::max(0, (int)xs.size() - candleCount);
-                            int count = xs.size() - start;
-                            float candle_width = 0.9f * (xs[1] - xs[0]);  
                             candlePlot::PlotCandlestick(
                                 "Candles",
                                 &xs[start],
@@ -509,9 +513,9 @@ int main(int, char**)
                             );
                             ImPlot::EndPlot();
                         }
-                        ImGui::EndPopup();
                     }
                 }
+                ImGui::EndPopup();
             }
 
             ImGui::End();

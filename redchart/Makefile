@@ -25,7 +25,7 @@ SRC = \
 all: gui
 
 gui: gui.cpp $(SRC)
-	$(CXX) $(CXXFLAGS) gui.cpp $(SRC) $(LDFLAGS) -o gui
+	$(CXX) $(CXXFLAGS) gui.cpp $(SRC) $(LDFLAGS) -o build/redchart
 
 clean:
-	rm -f gui
+	rm -f build/redchart

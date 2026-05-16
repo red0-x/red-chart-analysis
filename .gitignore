@@ -3,5 +3,10 @@ red-chart-analysis/results/*
 red-chart-analysis/modules/*
 red-chart-analysis/build/redchart
 *.vscode*
+<<<<<<< HEAD
 *.o
 .claude/*
+=======
+*.claude
+*.o
+>>>>>>> 3b1224c84d145b7d8b459b8e3ddf0f877d3fe887
