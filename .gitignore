@@ -4,3 +4,4 @@ red-chart-analysis/modules/*
 red-chart-analysis/build/redchart
 *.vscode*
 *.o
+.claude/*
