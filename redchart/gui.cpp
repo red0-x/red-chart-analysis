@@ -194,6 +194,10 @@ int main(int, char**)
     SDL_GL_SetAttribute(SDL_GL_DOUBLEBUFFER, 1);
     SDL_GL_SetAttribute(SDL_GL_DEPTH_SIZE, 24);
     SDL_GL_SetAttribute(SDL_GL_STENCIL_SIZE, 8);
+    SDL_GL_SetAttribute(SDL_GL_ALPHA_SIZE, 8);
+    SDL_GL_SetAttribute(SDL_GL_RED_SIZE, 8);
+    SDL_GL_SetAttribute(SDL_GL_GREEN_SIZE, 8);
+    SDL_GL_SetAttribute(SDL_GL_BLUE_SIZE, 8);
     float main_scale = SDL_GetDisplayContentScale(SDL_GetPrimaryDisplay());
     SDL_WindowFlags window_flags = SDL_WINDOW_OPENGL | SDL_WINDOW_RESIZABLE | SDL_WINDOW_HIDDEN | SDL_WINDOW_HIGH_PIXEL_DENSITY | SDL_WINDOW_TRANSPARENT | SDL_WINDOW_BORDERLESS;
     SDL_Window* window = SDL_CreateWindow("RedChart", (int)(1280 * main_scale), (int)(720 * main_scale), window_flags);
@@ -341,13 +345,9 @@ int main(int, char**)
         // Window for Red-Chart
         {
 
-            ImGuiWindowFlags flags = ImGuiWindowFlags_NoResize 
-                    //    | ImGuiWindowFlags_NoCollapse 
-                       | ImGuiWindowFlags_AlwaysAutoResize; 
-                    //    | ImGuiWindowFlags_NoSavedSettings  
-                    //    | ImGuiWindowFlags_NoDecoration 
-                    //    | ImGuiWindowFlags_NoBackground;
+            ImGuiWindowFlags flags = 0;
 
+            ImGui::SetNextWindowSize(ImVec2(420, 0), ImGuiCond_FirstUseEver);
             ImGui::Begin("RedChart", nullptr, flags);
 
             static char ticker_buf[64] = "";
@@ -493,65 +493,70 @@ int main(int, char**)
                 ImGui::EndPopup();
             }
 
+            static bool show_chart = false;
             if (ImGui::Button("Load Chart")) {
                 getChart();
-                ImGui::OpenPopup("Chart Popup");
-            }
-
-            if (ImGui::BeginPopup("Chart Popup")) {
-
-                ImGui::Text("Chart [%s] %s", ticker_buf, tf_buf);
-
-                if (!csvLoaded) {
-                    ImGui::Text("No chart data loaded.");
-                } else {
-                    std::vector<double> xs;
-                    std::vector<double> opens, highs, lows, closes;
-                    std::vector<std::pair<Time, Candlestick>> sorted_chart(csv.Chart.begin(), csv.Chart.end());
-                    std::sort(sorted_chart.begin(), sorted_chart.end(), [](const auto& a, const auto& b) {
-                        const Time& t1 = a.first;
-                        const Time& t2 = b.first;
-                        return std::tie(t1.year, t1.month, t1.day, t1.hour, t1.minute, t1.second) < std::tie(t2.year, t2.month, t2.day, t2.hour, t2.minute, t2.second);
-                    });
-                    for (const auto& [time, candle] : sorted_chart) {
-                        xs.push_back(TimeToUnixSeconds(time));
-                        opens.push_back(candle.open);
-                        highs.push_back(candle.high);
-                        lows.push_back(candle.low);
-                        closes.push_back(candle.close);
-                    }
-                    if (xs.size() < 2) {
-                        ImGui::Text("Not enough data to plot.");
-                    } else {
-                        if (ImPlot::BeginPlot(ticker_buf)) {
-                            ImPlot::SetupAxes("Time", "Price");
-                            ImPlot::SetupAxisScale(ImAxis_X1, ImPlotScale_Time);
-                            ImPlot::SetupAxesLimits(
-                                xs.front(), xs.back(),
-                                *std::min_element(lows.begin(), lows.end()),
-                                *std::max_element(highs.begin(), highs.end())
-                            );
-                            candlePlot::PlotCandlestick(
-                                "Candles",
-                                xs.data(),
-                                opens.data(),
-                                closes.data(),
-                                lows.data(),
-                                highs.data(),
-                                (int)xs.size(),
-                                true,
-                                0.25f,
-                                ImVec4(0.0f, 1.0f, 0.0f, 1.0f),
-                                ImVec4(1.0f, 0.0f, 0.0f, 1.0f)
-                            );
-                            ImPlot::EndPlot();
-                        }
-                    }
-                }
-                ImGui::EndPopup();
+                show_chart = true;
             }
 
             ImGui::End();
+
+            if (show_chart) {
+                ImGui::SetNextWindowSize(ImVec2(900, 560), ImGuiCond_FirstUseEver);
+                if (ImGui::Begin("Chart", &show_chart)) {
+                    ImGui::Text("Chart [%s] %s", ticker_buf, tf_buf);
+                    if (!csvLoaded) {
+                        ImGui::Text("No chart data loaded.");
+                    } else {
+                        std::vector<double> xs;
+                        std::vector<double> opens, highs, lows, closes;
+                        std::vector<std::pair<Time, Candlestick>> sorted_chart(csv.Chart.begin(), csv.Chart.end());
+                        std::sort(sorted_chart.begin(), sorted_chart.end(), [](const auto& a, const auto& b) {
+                            const Time& t1 = a.first;
+                            const Time& t2 = b.first;
+                            return std::tie(t1.year, t1.month, t1.day, t1.hour, t1.minute, t1.second) < std::tie(t2.year, t2.month, t2.day, t2.hour, t2.minute, t2.second);
+                        });
+                        for (const auto& [time, candle] : sorted_chart) {
+                            xs.push_back(TimeToUnixSeconds(time));
+                            opens.push_back(candle.open);
+                            highs.push_back(candle.high);
+                            lows.push_back(candle.low);
+                            closes.push_back(candle.close);
+                        }
+                        if (xs.size() < 2) {
+                            ImGui::Text("Not enough data to plot.");
+                        } else {
+                            ImVec2 avail = ImGui::GetContentRegionAvail();
+                            if (ImPlot::BeginPlot(ticker_buf, avail, ImPlotFlags_NoTitle | ImPlotFlags_Crosshairs)) {
+                                ImPlot::SetupAxes("Time", "Price",
+                                    ImPlotAxisFlags_None,
+                                    ImPlotAxisFlags_None);
+                                ImPlot::SetupAxisScale(ImAxis_X1, ImPlotScale_Time);
+                                ImPlot::SetupAxisLimits(ImAxis_X1, xs.front(), xs.back(), ImPlotCond_Once);
+                                ImPlot::SetupAxisLimits(ImAxis_Y1,
+                                    *std::min_element(lows.begin(), lows.end()),
+                                    *std::max_element(highs.begin(), highs.end()),
+                                    ImPlotCond_Once);
+                                candlePlot::PlotCandlestick(
+                                    "Candles",
+                                    xs.data(),
+                                    opens.data(),
+                                    closes.data(),
+                                    lows.data(),
+                                    highs.data(),
+                                    (int)xs.size(),
+                                    true,
+                                    0.25f,
+                                    ImVec4(0.0f, 1.0f, 0.0f, 1.0f),
+                                    ImVec4(1.0f, 0.0f, 0.0f, 1.0f)
+                                );
+                                ImPlot::EndPlot();
+                            }
+                        }
+                    }
+                }
+                ImGui::End();
+            }
         }
 
         // Rendering
