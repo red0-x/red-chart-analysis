@@ -11,6 +11,41 @@
 >- EMAs, SDs and other built in indicators
 >- Webhook functionality
 
+#### 5/3/2026-5.16 
+
+> ### Major update: Added Gui fixes and Yahoo finance fetching is now available.
+- Fetch ANY chart ticker supported by yahoo finance's api and load it onto the chart
+
+- Chart readability bugs sqaushed!
+
+> ### Config viewing revamp,
+- can now edit config within the gui and pick charts to read with ease!
+
+<details>
+<summary><b>Older updates</b></summary>
+
+#### 8/14/2025
+> ### Added Gui + Readable Chart 
+
+- Loads Config and handles chart data.
+
+- Doesn't really work well with large sets of data, I will be fixing that soon.
+
+- The candles coloring can be buggy and I'm also fixing that.
+
+- Should be more updates to come
+
+#### 7/28/2025
+> ### Added Menu
+
+- Prints Menu 
+
+- Handles User input
+
+> ### Modified Parsing Output
+
+- Looks a little different + with line counter
+
 #### 7/24/2025
 > ### Added Config Handling 
 
@@ -28,37 +63,7 @@
 
 - Likely gives a segmentation fault
 
-#### 7/28/2025
-> ### Added Menu
-
-- Prints Menu 
-
-- Handles User input
-
-> ### Modified Parsing Output
-
-- Looks a little different + with line counter
-
-#### 8/14/2025
-> ### Added Gui + Readable Chart 
-
-- Loads Config and handles chart data.
-
-- Doesn't really work well with large sets of data, I will be fixing that soon.
-
-- The candles coloring can be buggy and I'm also fixing that.
-
-- Should be more updates to come
-
-#### 5/3/2026-5.16 
-
-> ### Major update: Added Gui fixes and Yahoo finance fetching is now available.
-- Fetch ANY chart ticker supported by yahoo finance's api and load it onto the chart
-
-- Chart readability bugs sqaushed!
-
-> ### Config viewing revamp,
-- can now edit config within the gui and pick charts to read with ease!
+</details>
   
 
 ## Build with 
