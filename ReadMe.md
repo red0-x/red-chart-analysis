@@ -1,13 +1,18 @@
-[WIP] @ [red0xx.top](https://red0xx.top/?r=redchartcpp)
-# red0xx's chart analysis tool
+
+# RedChart - The grapical charting tool, all in one for your needs
+- Written in c++ with yahoo finance api implementation and simple graphing abilities.
+- currently [WIP] @ [red0xx.top](https://red0xx.top/?r=redchartcpp)
 
 >### The RoadMap
->- Read and Load Chart Data from .csv
->- Lose money
->- Improve my C++ skills
+>- Add indicator functionality
+>- UI Revamp with nice panelling and red coloring
+>- Graphing improvements, sizing changes and better visibility
+>- Add Custom candle colors and different candle types
+>- EMAs, SDs and other built in indicators
+>- Webhook functionality
 
 #### 7/24/2025
-> ### Added Config Handling
+> ### Added Config Handling 
 
 - Reads .cfg file
 
@@ -44,6 +49,16 @@
 - The candles coloring can be buggy and I'm also fixing that.
 
 - Should be more updates to come
+
+#### 5/3/2026-5.16 
+
+> ### Major update: Added Gui fixes and Yahoo finance fetching is now available.
+- Fetch ANY chart ticker supported by yahoo finance's api and load it onto the chart
+
+- Chart readability bugs sqaushed!
+
+> ### Config viewing revamp,
+- can now edit config within the gui and pick charts to read with ease!
   
 
 ## Build with 
